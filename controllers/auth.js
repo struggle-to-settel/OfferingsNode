@@ -3,7 +3,7 @@ const User = require('../models/User');
 const {JWT_SECRET_KEY,ERROR_MESSAGES,STATUS_CODES} = require('../constants')
 const tokenCheck = async (req, res, next) => {
   try {
-    const token = req.header('token').replace('Bearer ', '');
+    const token = req.header('Token').replace('Bearer ', '');
     const decoded = jwt.verify(token, JWT_SECRET_KEY);
     const user = await User.findOne({ _id: decoded.userId, token });
 
