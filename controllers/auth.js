@@ -7,9 +7,12 @@ const tokenCheck = async (req, res, next) => {
     const token = req.header('Token').replace('Bearer ', '');
     console.log("Token ---> ",token);
     const decoded = jwt.verify(token, JWT_SECRET_KEY);
-    const user = await User.findOne({ _id: decoded.userId, token });
+    console.log("User ID ---> ",decoded.userId);
+    const user  = await User.findById(decoded.userId);
+    // const user = await User.findOne({ _id: decoded.userId, token });
 
     if (!user) {
+      console.log("Throwing Error user not found -->",user);
       throw new Error();
     }
 
